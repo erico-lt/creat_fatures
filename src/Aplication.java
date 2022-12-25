@@ -14,15 +14,24 @@ public class Aplication {
         Scanner input = new Scanner(System.in);
         DateTimeFormatter stf = DateTimeFormatter.ofPattern("dd/MM/yyyy");        
         
-        LocalDate date = LocalDate.parse("20/09/2022", stf);
-        Contract contract = new Contract(8028, date, 600.00);
+        System.out.println("Entre com os dados do contrato");
+        System.out.print("Numero: ");
+        int contractNumber = input.nextInt();
+        input.nextLine();
+        System.out.print("Data (dd/MM/yyyy): ");
+        LocalDate date = LocalDate.parse(input.nextLine(), stf);
+        System.out.print("Valor do contrato: ");
+        double valueContract = input.nextDouble();
+        System.out.print("Entre com a quantidade de parcelas: ");
+        int installmentQuantity = input.nextInt();
+        Contract contract = new Contract(contractNumber, date, valueContract);
         ContractService service = new ContractService(new PaypalService());
         
-        service.processContract(contract, 3);
+        service.processContract(contract, installmentQuantity);
+        
         for(Installment x: contract.getListInstallment()) {
             System.out.println(x.toString());
         }
-
         input.close();
     }
 }
