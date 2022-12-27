@@ -13,16 +13,18 @@ public class ContractService {
         this.setOlinePaymentService(olinePaymentService);
     }
 
-    public void processContract(Contract contract, int months) {
-        LocalDate nextDueDate = contract.getDate();
+    public void processContract(Contract contract, int months) {        
         double valuePerMonth = contract.getTotalValue() / months;
 
         for(int cont = 1; cont <= months; cont ++) {
-            nextDueDate = nextDueDate.plusDays(30);
-            double valueWithTaxForMonth = this.getOlinePaymentService().interest(valuePerMonth, cont);
-            double taxOfPayment = this.getOlinePaymentService().paymentFee(valuePerMonth + valueWithTaxForMonth);
-            double totalvalue = valuePerMonth + taxOfPayment + valueWithTaxForMonth; 
+            LocalDate nextDueDate = contract.getDate().plusMonths(cont);
+           
+            double interest = this.getOlinePaymentService().interest(valuePerMonth, cont);
+            double fee = this.getOlinePaymentService().paymentFee(valuePerMonth + interest);
+            double totalvalue = valuePerMonth + fee + interest; 
+           
             contract.addContract(new Installment(nextDueDate, totalvalue));
+        
         }        
     }
 
