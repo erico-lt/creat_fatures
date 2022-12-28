@@ -1,5 +1,7 @@
 package model.services;
 
+import model.interfaces.OlinePaymentService;
+
 public class PaypalService implements OlinePaymentService {
 
     @Override

@@ -4,12 +4,13 @@ import java.time.LocalDate;
 
 import model.entites.Contract;
 import model.entites.Installment;
+import model.interfaces.OlinePaymentService;
 
-public class ContractService {
+public class MethodOfPayment {
     
     private OlinePaymentService olinePaymentService;
 
-    public ContractService(OlinePaymentService olinePaymentService) {        
+    public MethodOfPayment(OlinePaymentService olinePaymentService) {        
         this.setOlinePaymentService(olinePaymentService);
     }
 

@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import model.entites.Contract;
 import model.entites.Installment;
-import model.services.ContractService;
+import model.services.MethodOfPayment;
 import model.services.PaypalService;
 
 public class Aplication {
@@ -25,7 +25,7 @@ public class Aplication {
         System.out.print("Entre com a quantidade de parcelas: ");
         int installmentQuantity = input.nextInt();
         Contract contract = new Contract(contractNumber, date, valueContract);
-        ContractService service = new ContractService(new PaypalService());
+        MethodOfPayment service = new MethodOfPayment(new PaypalService());
         
         service.processContract(contract, installmentQuantity);
         

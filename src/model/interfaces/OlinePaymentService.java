@@ -1,4 +1,4 @@
-package model.services;
+package model.interfaces;
 
 public abstract interface OlinePaymentService {
     public abstract double paymentFee(double amount);

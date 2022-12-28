@@ -7,7 +7,7 @@ import java.util.List;
 public class Contract {
     private int number;
     private LocalDate date;
-    private double totalValue;
+    private double totalValue;   
 
     private List<Installment> listInstallment = new ArrayList<Installment>();
 
