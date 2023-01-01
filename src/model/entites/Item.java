@@ -65,4 +65,11 @@ public abstract class Item implements Comparable<Item>{
         this.cod_Product = cod_Product;
     }
 
+    @Override 
+    public String toString() {
+        return "Name: " + this.getName() +
+        "\nModel: " + this.getModel() +
+        "\nPrice: " + this.getPrice();        
+    }
+
 }
