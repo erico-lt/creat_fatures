@@ -1,15 +1,13 @@
-package model.services;
+package model.entites;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
-import model.entites.Item;
 
 public class Stock {
     private String name;    
-    private List<Item> list = new ArrayList<>();
-   
-    private OrderListService orderList;    
+    private List<Item> list = new ArrayList<>();   
+    
 
     public Stock(String name) {
         this.setName(name);
@@ -18,7 +16,8 @@ public class Stock {
     public void addItem(Item item, int cod_Product, int quant_Stock) {        
         item.setCod_Product(cod_Product);
         item.setQuant(quant_Stock);
-        list.add(item);          
+        list.add(item);   
+        Collections.sort(list);
     }
 
     public String getName() {
@@ -36,8 +35,5 @@ public class Stock {
     public void setList(List<Item> list) {
         this.list = list;
     }
-
-    public OrderListService getOrderList() {
-        return orderList;
-    }
+  
 }

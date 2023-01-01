@@ -1,7 +1,7 @@
 import model.entites.Item;
+import model.entites.Stock;
 import model.entites.intens.Bike;
 import model.enums.ItemTypes;
-import model.services.Stock;
 
 /*import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

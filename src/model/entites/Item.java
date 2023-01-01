@@ -63,7 +63,7 @@ public abstract class Item implements Comparable<Item>{
 
     public void setCod_Product(int cod_Product) {
         this.cod_Product = cod_Product;
-    }
+    }    
 
     @Override 
     public String toString() {
