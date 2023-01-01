@@ -24,8 +24,7 @@ public class MethodOfPayment {
             double fee = this.getOlinePaymentService().paymentFee(valuePerMonth + interest);
             double totalvalue = valuePerMonth + fee + interest; 
            
-            contract.addContract(new Installment(nextDueDate, totalvalue));
-        
+            contract.addContract(new Installment(nextDueDate, totalvalue));        
         }        
     }
 
