@@ -2,7 +2,7 @@ package model.entites;
 
 import model.enums.ItemTypes;
 
-public abstract class Item {
+public abstract class Item implements Comparable<Item>{
     private String name;
     private String model;
     private double price;

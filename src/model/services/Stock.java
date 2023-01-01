@@ -16,12 +16,12 @@ public class Stock {
         this.setName(name);
     } 
 
-    public void addItem(Item item, int cod_Product, int quant_Stock) {
-        item.setQuant(quant_Stock);
-        item.setCod_Product(cod_Product);
-        list.add(item);
+    public void addItem(Item item, int cod_Product, int quant_Stock) {        
         this.setCod_Product(cod_Product);
         this.setQuant_in_Stock(quant_Stock);
+        item.setCod_Product(cod_Product);
+        item.setQuant(quant_Stock);
+        list.add(item);        
     }
 
     public String getName() {

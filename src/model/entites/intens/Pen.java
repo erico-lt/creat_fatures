@@ -8,5 +8,10 @@ public class Pen extends Item{
     public Pen(String name, String model, double price, ItemTypes type) {
         super(name, model, price, type);       
     }
+
+    @Override
+    public int compareTo(Item pessoa) {        
+        return this.getName().compareTo(pessoa.getName());
+    }
     
 }

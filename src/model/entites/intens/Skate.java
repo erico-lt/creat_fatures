@@ -7,7 +7,12 @@ public class Skate extends Item{
 
     public Skate(String name, String model, double price, ItemTypes type) {
         super(name, model, price, type);
-        //TODO Auto-generated constructor stub
+       
+    }
+
+    @Override
+    public int compareTo(Item pessoa) {        
+        return this.getName().compareTo(pessoa.getName());
     }
     
 }
