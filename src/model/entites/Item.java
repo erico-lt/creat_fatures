@@ -6,11 +6,10 @@ public abstract class Item {
     private String name;
     private String model;
     private double price;
+    private int quant;
+    private int cod_Product;
     private ItemTypes type;
-
-    public Item(){        
-    }
-
+  
     public Item(String name, String model, double price, ItemTypes type) {        
         this.setName(name);
         this.setModel(model);
@@ -48,6 +47,22 @@ public abstract class Item {
 
     public void setType(ItemTypes type) {
         this.type = type;
+    }
+
+    public int getQuant() {
+        return quant;
+    }
+
+    public void setQuant(int quant) {
+        this.quant = quant;
+    }
+
+    public int getCod_Product() {
+        return cod_Product;
+    }
+
+    public void setCod_Product(int cod_Product) {
+        this.cod_Product = cod_Product;
     }
 
 }
