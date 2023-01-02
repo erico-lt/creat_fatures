@@ -10,8 +10,8 @@ public class Pen extends Item{
     }
 
     @Override
-    public int compareTo(Item pessoa) {        
-        return this.getName().compareTo(pessoa.getName());
+    public int compareTo(Item item) {        
+        return this.getName().compareTo(item.getName());
     }
     
 }
