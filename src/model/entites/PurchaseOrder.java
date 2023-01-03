@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.exception.PurchaseException;
 import model.services.ServicesPurchaseOrder;
 
 public class PurchaseOrder extends ServicesPurchaseOrder {  
@@ -17,7 +18,9 @@ public class PurchaseOrder extends ServicesPurchaseOrder {
     public void addItem(Item item) {
         if (!codPorductExist(this.getRequestList(), item)) {
             this.getRequestList().add(item);
-        }
+        } else {
+            throw new PurchaseException("ERRO: produto já existente");
+        }        
     }
 
     public List<Item> getRequestList() {

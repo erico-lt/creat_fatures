@@ -18,15 +18,19 @@ public class ServicesPurchaseOrder {
     } 
 
     public boolean codPorductExist(List<Item> itens, Item item) {     
-        if(itens.isEmpty()) {
-            throw new NullPointerException("ERRO: this list is empty");
-        }   
         for(Item x: itens) {
             if(x.getCod_Product() == item.getCod_Product()) {
                 return true;
             }
         }         
         return false;
+    }
+
+    public void valueOrder(List<Item> list) {
+        for(Item item: list) {
+            double price = item.getPrice() * item.getQuant();
+            this.setValueOrder(this.getValueOrder() + price); 
+        }
     }
 
     public LocalDate getDate() {

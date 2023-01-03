@@ -1,4 +1,5 @@
 import model.entites.Item;
+import model.entites.PurchaseOrder;
 import model.entites.Stock;
 import model.entites.intens.Bike;
 import model.enums.ItemTypes;
@@ -16,20 +17,27 @@ import model.services.PaypalService;*/
 public class Aplication {
     public static void main(String[] args){
         
-        Stock stock = new Stock("Stock #1");
+        //Codigo para teste
+        Stock stock = new Stock("Stock #1");              
         
-        Item bike = new Bike("Bike", "Rover", 500.00, ItemTypes.BIKE);
         Item tv = new Bike("Tv plasma", "Samsung", 700.00, ItemTypes.TV);
-        Item skate = new Bike("Ball", "cup wolrd", 100.00, ItemTypes.BALL);
-        stock.addItem(bike, 554, 25);
-        stock.addItem(tv, 553, 25);
-        stock.addItem(skate, 552, 25);
+        Item skate = new Bike("Skate", "advanced", 100.00, ItemTypes.SKATE);
+        
+        stock.addItem(tv, 553, 2);
+        stock.addItem(skate, 552, 0);
+
+        PurchaseOrder order = new PurchaseOrder(null, 22, 22);
+        order.addItem(skate);
+        order.addItem(tv);
+        order.valueOrder(order.getRequestList());
+        
 
         for(Item item: stock.getList()) {
             System.out.println(item.toString());
             System.out.println();
         }
-        
+       
+        System.out.println(order.getValueOrder());
         
         /*Locale.setDefault(Locale.US);
         Scanner input = new Scanner(System.in);
