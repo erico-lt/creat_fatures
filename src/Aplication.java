@@ -28,9 +28,7 @@ public class Aplication {
 
         PurchaseOrder order = new PurchaseOrder(null, 22, 22);
         order.addItem(skate);
-        order.addItem(tv);
-        order.valueOrder(order.getRequestList());
-        
+        order.addItem(tv);         
 
         for(Item item: stock.getList()) {
             System.out.println(item.toString());

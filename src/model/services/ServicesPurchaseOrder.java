@@ -1,21 +1,10 @@
 package model.services;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import model.entites.Item;
 
-public class ServicesPurchaseOrder {
-    private LocalDate date;
-    private double valueOrder;
-    private int requestNumber;
-    private int cod_Client;
-
-    public ServicesPurchaseOrder(LocalDate date, int requestNumber, int cod_Client) {
-        this.setDate(date);
-        this.setRequestNumber(requestNumber);
-        this.setCod_Client(cod_Client);
-    } 
+public class ServicesPurchaseOrder { 
 
     public boolean codPorductExist(List<Item> itens, Item item) {     
         for(Item x: itens) {
@@ -26,42 +15,7 @@ public class ServicesPurchaseOrder {
         return false;
     }
 
-    public void valueOrder(List<Item> list) {
-        for(Item item: list) {
-            double price = item.getPrice() * item.getQuant();
-            this.setValueOrder(this.getValueOrder() + price); 
-        }
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public double getValueOrder() {
-        return valueOrder;
-    }
-
-    private void setValueOrder(double valueOrder) {
-        this.valueOrder = valueOrder;
-    }
-
-    public int getRequestNumber() {
-        return requestNumber;
-    }
-
-    public void setRequestNumber(int requestNumber) {
-        this.requestNumber = requestNumber;
-    }
-
-    public int getCod_Client() {
-        return cod_Client;
-    }
-
-    public void setCod_Client(int cod_Client) {
-        this.cod_Client = cod_Client;
+    public double valueOrder(Item item) {
+        return item.getPrice() * item.getQuant();
     }
 }

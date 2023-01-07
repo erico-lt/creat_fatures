@@ -14,7 +14,7 @@ public class MethodOfPayment {
         this.setOlinePaymentService(olinePaymentService);
     }
 
-    public void processContract(Contract contract, int months) {        
+    public void processContract(Contract contract, int months, Long cnpj) {        
         double valuePerMonth = contract.getTotalValue() / months;
 
         for(int cont = 1; cont <= months; cont ++) {
@@ -23,8 +23,13 @@ public class MethodOfPayment {
             double interest = this.getOlinePaymentService().interest(valuePerMonth, cont);
             double fee = this.getOlinePaymentService().paymentFee(valuePerMonth + interest);
             double totalvalue = valuePerMonth + fee + interest; 
-           
-            contract.addContract(new Installment(nextDueDate, totalvalue));        
+            
+            if(cnpj != null) {
+                
+            } else {
+                contract.addContract(new Installment(nextDueDate, totalvalue));
+            }
+                    
         }        
     }
 

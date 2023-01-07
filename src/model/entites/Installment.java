@@ -6,12 +6,19 @@ import java.time.format.DateTimeFormatter;
 public class Installment {
     private LocalDate dueDate;
     private double amount;
+    private Long cnpj;
     DateTimeFormatter stf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    
+    public Installment(LocalDate dueDate, double amount, Long cnpj) {
+        this.setDueDate(dueDate);
+        this.setAmount(amount);
+        this.setCnpj(cnpj);
+    }
     
     public Installment(LocalDate dueDate, double amount) {
         this.setDueDate(dueDate);
-        this.setAmount(amount);
-    }    
+        this.setAmount(amount);         
+    } 
 
     public LocalDate getDueDate() {
         return dueDate;
@@ -29,8 +36,16 @@ public class Installment {
         this.amount = amount;
     }
 
+    public Long getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(Long cnpj) {
+        this.cnpj = cnpj;
+    }
+
     @Override
     public String toString(){
         return  this.getDueDate().format(stf) + " - " + String.format("%.2f",this.getAmount());
     }  
-}      
+}
