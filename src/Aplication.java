@@ -1,8 +1,7 @@
-import model.entites.Item;
-import model.entites.PurchaseOrder;
-import model.entites.Stock;
-import model.entites.intens.Bike;
-import model.enums.ItemTypes;
+import model.entites.Clients;
+import model.entites.Store;
+import model.entites.client.PessoaFisica;
+import model.services.PaypalService;
 
 /*import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,7 +17,19 @@ public class Aplication {
     public static void main(String[] args){
         
         //Codigo para teste
-        Stock stock = new Stock("Stock #1");              
+        Clients cliente = new PessoaFisica(676); 
+        Clients cliente2 = new PessoaFisica(20);
+        Clients cliente3= new PessoaFisica(67);
+        Store store = new Store("Mercearia", new PaypalService());
+        store.addClients(cliente);
+        store.addClients(cliente2);
+        store.addClients(cliente3);
+        for(Clients x: store.getClients()) {
+            System.out.println(x.toString());
+        }
+        
+        
+        /*Stock stock = new Stock("Stock #1");              
         
         Item tv = new Bike("Tv plasma", "Samsung", 700.00, ItemTypes.TV);
         Item skate = new Bike("Skate", "advanced", 100.00, ItemTypes.SKATE);
@@ -37,7 +48,7 @@ public class Aplication {
        
         System.out.println(order.getValueOrder());
         
-        /*Locale.setDefault(Locale.US);
+        Locale.setDefault(Locale.US);
         Scanner input = new Scanner(System.in);
         DateTimeFormatter stf = DateTimeFormatter.ofPattern("dd/MM/yyyy");        
         

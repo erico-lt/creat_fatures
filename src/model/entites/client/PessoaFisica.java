@@ -1,11 +1,17 @@
 package model.entites.client;
 
+import model.entites.Clients;
+
 public class PessoaFisica extends Clients{
     private Long cpf;
     private Long rg; 
 
-    public PessoaFisica(String name, String telephone, String email, String[] address, Long cpf, Long rg) {
-        super(name, telephone, email, address);     
+    public PessoaFisica(Integer cod) {
+        super(cod);
+    }
+
+    public PessoaFisica(String name, String telephone, String email, String[] address, Long cpf, Long rg, Integer codCliente) {
+        super(name, telephone, email, address, codCliente);     
         this.setCpf(cpf);
         this.setRg(rg);   
     }
@@ -24,6 +30,16 @@ public class PessoaFisica extends Clients{
 
     public void setRg(Long rg) {
         this.rg = rg;
+    }
+
+    @Override
+    public int compareTo(Clients cliente) {
+        return this.getCodCliente().compareTo(cliente.getCodCliente());
+    }
+
+    @Override 
+    public String toString() {
+        return super.toString();
     }
 
 }

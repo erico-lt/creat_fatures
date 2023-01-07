@@ -1,16 +1,22 @@
-package model.entites.client;
+package model.entites;
 
-public class Clients {
+public abstract class Clients  implements Comparable<Clients>{
     private String name;
     private String telephone;
     private String email;
-    private String[] address = new String[4];    
+    private String[] address = new String[4];
+    private Integer codCliente;    
 
-    public Clients(String name, String telephone, String email, String[] address) {
+    public Clients(Integer cod) {
+        this.setCodCliente(cod);
+    }
+
+    public Clients(String name, String telephone, String email, String[] address, Integer codClient) {
         this.setName(name);
         this.setTelephone(telephone);
         this.setEmail(email);
         this.setAddress(address);
+        this.setCodCliente(codClient);
     }
 
     public String getName() {
@@ -45,6 +51,19 @@ public class Clients {
         for(int cont = 0; cont < this.getAddress().length - 1; cont++) {
             this.address[cont] = address[cont];
         }
+    }
+
+    public void setCodCliente(Integer codClient) {
+        this.codCliente = codClient;
+    }
+
+    public Integer getCodCliente() {
+        return codCliente;
+    }
+
+    @Override 
+    public String toString() {
+        return this.getName() + "," + this.getCodCliente();
     }
 
 }
