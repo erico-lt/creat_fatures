@@ -5,8 +5,8 @@ import model.enums.ItemTypes;
 
 public class Bike extends Item{
 
-    public Bike(String name, String model, double price, ItemTypes type) {
-        super(name, model, price, type);           
+    public Bike(String model, Double price, ItemTypes type) {
+        super(model, price, type);           
     }
 
     @Override

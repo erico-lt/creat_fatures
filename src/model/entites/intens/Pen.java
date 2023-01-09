@@ -5,8 +5,8 @@ import model.enums.ItemTypes;
 
 public class Pen extends Item{
 
-    public Pen(String name, String model, double price, ItemTypes type) {
-        super(name, model, price, type);       
+    public Pen(String model, Double price, ItemTypes type) {
+        super(model, price, type);       
     }
 
     @Override

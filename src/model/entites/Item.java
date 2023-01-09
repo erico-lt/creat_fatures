@@ -5,13 +5,23 @@ import model.enums.ItemTypes;
 public abstract class Item implements Comparable<Item>{
     private String name;
     private String model;
-    private double price;
+    private Double price;
     private int quant;
     private int cod_Product;
     private ItemTypes type;
   
-    public Item(String name, String model, double price, ItemTypes type) {        
-        this.setName(name);
+    public Item(String model, Double price, ItemTypes type) {  
+        if(type.equals(ItemTypes.BALL)) {
+            this.setName("Ball");
+        } else if(type.equals(ItemTypes.BIKE)) {
+            this.setName("Bike");
+        } else if(type.equals(ItemTypes.PEN)) {
+            this.setName("Pen");
+        } else if(type.equals(ItemTypes.SKATE)) {
+            this.setName("Skatw");
+        } else {
+            this.setName("Tv");
+        }        
         this.setModel(model);
         this.setPrice(price);
         this.setType(type);
@@ -33,7 +43,7 @@ public abstract class Item implements Comparable<Item>{
         this.model = model;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     
     }    

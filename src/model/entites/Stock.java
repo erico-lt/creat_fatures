@@ -13,7 +13,7 @@ public class Stock {
         this.setName(name);
     } 
 
-    public void addItem(Item item, int cod_Product, int quant_Stock) {        
+    public void addItem(Item item, Integer cod_Product, Integer quant_Stock) {        
         item.setCod_Product(cod_Product);
         item.setQuant(quant_Stock);
         list.add(item);   

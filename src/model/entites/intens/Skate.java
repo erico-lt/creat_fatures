@@ -5,8 +5,8 @@ import model.enums.ItemTypes;
 
 public class Skate extends Item{
 
-    public Skate(String name, String model, double price, ItemTypes type) {
-        super(name, model, price, type);
+    public Skate(String model, Double price, ItemTypes type) {
+        super(model, price, type);
        
     }
 
