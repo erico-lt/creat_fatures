@@ -3,6 +3,7 @@ package model.entites;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.enums.ItemTypes;
 import model.exception.StoreException;
 import model.services.StoreServices;
 
@@ -26,8 +27,9 @@ public class Store {
         }
     }
 
-    public void addItemInStock(String nameAndType, String model, Double price, Integer codProduct, Integer quantity) {
-
+    public void addItemInStock(ItemTypes type, String model, Double price, Integer codProduct, Integer quantity) {
+        Item item = this.storeServices.verificItem(type, model, price);
+        stock.addItem(item, codProduct, quantity);
     }
 
     public String getName() {

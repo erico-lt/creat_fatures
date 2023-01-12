@@ -3,6 +3,7 @@ package model.entites.intens;
 import java.util.Scanner;
 
 import model.entites.Store;
+import model.enums.ItemTypes;
 import model.exception.StoreException;
 
 public class UI {
@@ -27,18 +28,18 @@ public class UI {
                     System.out.println("Select the Item for be added");
                     System.out.println("________________________________");
                     System.out.print("[Ball]-[Bike]-[Pen]-[Skate]-[Tv]: ");
-                    String itemType = input.next();
+                    String itemType = input.next().toUpperCase();
                     input.nextLine();
                     System.out.print("What model of item " + itemType + ":");
                     String model = input.nextLine();
                     System.out.print("What price of item " + itemType + ":");
-                    Double price = input.nextDouble();
+                    Double price = input.nextDouble();                    
                     System.out.print("What code of Item " + itemType + ":");  
                     Integer codProduct = input.nextInt();
                     input.nextLine();
                     System.out.print("What quantity of item " + itemType + ":");
                     Integer quantity = input.nextInt();  
-                    store.addItemInStock(itemType, model, price, codProduct, quantity);              
+                    store.addItemInStock(ItemTypes.valueOf(itemType), model, price, codProduct, quantity);              
                 case 2:    
             }
         }        

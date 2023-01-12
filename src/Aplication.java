@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+import model.entites.Item;
 import model.entites.Store;
 import model.entites.intens.UI;
 import model.services.MethodOfPayment;
@@ -13,6 +14,9 @@ public class Aplication {
         while(true) {
             try {
                 UI.storeOptions(store, input);
+                for(Item x: store.getStock().getList()) {
+                    System.out.println(x.toString());
+                }
             }
             catch(RuntimeException e) {
                 System.out.println(e.getMessage());

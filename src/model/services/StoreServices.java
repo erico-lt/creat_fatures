@@ -1,6 +1,10 @@
 package model.services;
 
-import java.util.List; 
+import java.util.List;
+
+import model.entites.Item;
+import model.entites.intens.Ball;
+import model.enums.ItemTypes; 
 
 public class StoreServices {
     
@@ -15,5 +19,12 @@ public class StoreServices {
         }
 
         return false;
+    }
+
+    public Item verificItem(ItemTypes type, String model, Double price){        
+        if(type.equals(ItemTypes.BALL)) {
+            return new Ball(model, price, ItemTypes.BALL);
+        }
+        return null;
     }
 }
