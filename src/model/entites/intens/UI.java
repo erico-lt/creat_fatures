@@ -28,7 +28,7 @@ public class UI {
                     System.out.println("Select the name and quantity");
                     System.out.println("Name item: ");
                     String nameItemforSale = input.nextLine();
-                    System.out.println("quantity?");
+                    System.out.println("quantity:");
                     int quantity = input.nextInt();
                 case 2:    
             }
