@@ -1,14 +1,43 @@
 package model.entites.intens;
 
-import java.util.Scanner;
-
-import model.entites.Store;
-import model.enums.ItemTypes;
+import java.util.Scanner; 
+import model.entites.Store; 
 import model.exception.StoreException;
 
 public class UI {
-    
-    public static void storeOptions(Store store, Scanner input) {
+
+    public static void firstPage(Store store, Scanner input) {
+        System.out.println(store.toString());
+        System.out.println();
+        System.out.println("MENU");
+        System.out.println("[1] Purchase");
+        System.out.println("[2] View Order");
+        int opcao = input.nextInt();
+        purchaseOrOrder(opcao, store, input);
+    }
+
+    public static void purchaseOrOrder(int opcao, Store store, Scanner input) {        
+        if(opcao < 1 || opcao >= 2){
+            throw new StoreException("[ERRO] is invalid the option select");
+        }else {
+            switch(opcao) {
+                case 1:
+                    System.out.println("Items for sale");
+                    System.out.println("_____________________");
+                    store.itemsForSale();            
+                    System.out.println("Select the name and quantity");
+                    System.out.println("Name item: ");
+                    String nameItemforSale = input.nextLine();
+                    System.out.println("quantity?");
+                    int quantity = input.nextInt();
+                case 2:    
+            }
+        }        
+    }
+
+
+    //codigo para reuso para administrador da loja
+    /*public static void storeOptions(Store store, Scanner input) {
         System.out.println(store.toString());
         System.out.println();
         System.out.println("#OPTIONS#");
@@ -43,5 +72,5 @@ public class UI {
                 case 2:    
             }
         }        
-    }
+    }*/
 }

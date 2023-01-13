@@ -27,8 +27,16 @@ public class Store {
         }
     }
 
+    public void items() {
+        this.storeServices.addItensInStock(this);
+    }
+
+    public void itemsForSale() {
+        this.storeServices.itemsForSale(this);
+    }
+
     public void addItemInStock(ItemTypes type, String model, Double price, Integer codProduct, Integer quantity) {
-        Item item = this.storeServices.verificItem(type, model, price);
+        Item item = this.storeServices.verificItemOfAdd(type, model, price);
         stock.addItem(item, codProduct, quantity);
     }
 

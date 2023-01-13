@@ -78,8 +78,9 @@ public abstract class Item implements Comparable<Item>{
     @Override 
     public String toString() {
         return "Name: " + this.getName() +
-        "\nModel: " + this.getModel() +
-        "\nPrice: " + this.getPrice();        
+        "\nModel: " + this.getModel() + 
+        "\nPrice: " + this.getPrice() + 
+        "\n_____________________";       
     }
 
 }
