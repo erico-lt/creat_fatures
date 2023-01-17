@@ -1,5 +1,6 @@
 package model.entites;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,17 @@ public class Store {
     public void addItemInStock(ItemTypes type, String model, Double price, Integer codProduct, Integer quantity) {
         Item item = this.storeServices.verificItemOfAdd(type, model, price);
         stock.addItem(item, codProduct, quantity);
+    }
+
+    public void checkItemInStock(String nameItem, int quant, Clients client) {
+        if(!nameItem.equals("BALL")  && !nameItem.equals("BIKE") && !nameItem.equals("PEN") && !nameItem.equals("SKATE") && !nameItem.equals( "TV")) {
+            throw new StoreException("[ERRO] check name of item");
+        }
+        Item itemForPurchaseOrder = this.getStock().checkItemForSale(nameItem, quant);
+        if(itemForPurchaseOrder != null) {           
+            int requestNumber = storeServices.checkRequestNumber(this, client);
+            this.getPurchaseOrder().add(new PurchaseOrder(LocalDate.now(), requestNumber, client.getCodCliente()));
+        }
     }
 
     public String getName() {

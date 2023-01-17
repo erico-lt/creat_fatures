@@ -80,6 +80,7 @@ public abstract class Item implements Comparable<Item>{
         return "Name: " + this.getName() +
         "\nModel: " + this.getModel() + 
         "\nPrice: " + this.getPrice() + 
+        "\nQuantity: " + this.getQuant() + 
         "\n_____________________";       
     }
 

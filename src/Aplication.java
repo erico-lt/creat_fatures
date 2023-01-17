@@ -1,7 +1,9 @@
 import java.util.Locale;
 import java.util.Scanner;
 
+import model.entites.Clients;
 import model.entites.Store;
+import model.entites.client.PessoaFisica;
 import model.entites.intens.UI;
 import model.services.MethodOfPayment;
 import model.services.PaypalService;
@@ -13,10 +15,11 @@ public class Aplication {
         MethodOfPayment servicePayment = new MethodOfPayment(new PaypalService());
         Store store = new Store("Sport e Lazer");  
         store.items();   
+        Clients cliente = new PessoaFisica(423, "Érico");
           
         while(true) {
             try {
-               UI.firstPage(store, input);
+               UI.firstPage(store, input, cliente);
             }
             catch(RuntimeException e) {
                 System.out.println(e.getMessage());

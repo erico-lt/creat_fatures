@@ -2,7 +2,9 @@ package model.services;
 
 import java.util.List;
 
+import model.entites.Clients;
 import model.entites.Item;
+import model.entites.PurchaseOrder;
 import model.entites.Store;
 import model.entites.intens.Ball;
 import model.entites.intens.Bike;
@@ -53,5 +55,18 @@ public class StoreServices {
             return new Tv(model, price, ItemTypes.TV);
         }
         return null;
+    }    
+
+    public Integer checkRequestNumber(Store store, Clients client) {
+        int requestNumber = 0;
+        for(PurchaseOrder x: store.getPurchaseOrder()) {
+            if(x.getCod_Client() == client.getCodCliente()) {
+                requestNumber =  x.getCod_Client() + 1;
+            } 
+            if(requestNumber != 0) {
+                return requestNumber;
+            }
+        }
+        return 1;
     }
 }

@@ -10,21 +10,21 @@ import model.services.ServicesPurchaseOrder;
 public class PurchaseOrder {  
     private LocalDate date;
     private double valueOrder;
-    private int requestNumber;
-    private int cod_Client; 
+    private Integer requestNumber;
+    private Integer cod_Client; 
 
     private List<Item> requestList = new ArrayList<>();
     private List<Installment> listInstallment = new ArrayList<>();
     private ServicesPurchaseOrder servicesPurchaseOrder = new ServicesPurchaseOrder();
 
-    public PurchaseOrder(LocalDate date, int requestNumber, int cod_Client) {
+    public PurchaseOrder(LocalDate date, Integer requestNumber, Integer cod_Client) {
         this.setDate(date);
         this.setRequestNumber(requestNumber);
         this.setCod_Client(cod_Client);
     } 
 
-    public void addItem(Item item) {
-        if (!servicesPurchaseOrder.codPorductExist(this.getRequestList(), item)) {
+    public void addItemForSale(Item item) {
+        if (servicesPurchaseOrder.codPorductExist(this.getRequestList(), item)) {
             this.getRequestList().add(item);
         } else {
             throw new PurchaseException("ERRO: produto já existente");
@@ -48,19 +48,19 @@ public class PurchaseOrder {
         this.valueOrder = valueOrder;
     }
 
-    public int getRequestNumber() {
+    public Integer getRequestNumber() {
         return requestNumber;
     }
 
-    public void setRequestNumber(int requestNumber) {
+    public void setRequestNumber(Integer requestNumber) {
         this.requestNumber = requestNumber;
     }
 
-    public int getCod_Client() {
+    public Integer getCod_Client() {
         return cod_Client;
     }
 
-    public void setCod_Client(int cod_Client) {
+    public void setCod_Client(Integer cod_Client) {
         this.cod_Client = cod_Client;
     } 
     

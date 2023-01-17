@@ -1,22 +1,25 @@
 package model.entites.intens;
 
-import java.util.Scanner; 
+import java.util.Scanner;
+
+import model.entites.Clients;
 import model.entites.Store; 
 import model.exception.StoreException;
 
 public class UI {
 
-    public static void firstPage(Store store, Scanner input) {
+    public static void firstPage(Store store, Scanner input, Clients cliente) {
         System.out.println(store.toString());
         System.out.println();
         System.out.println("MENU");
         System.out.println("[1] Purchase");
         System.out.println("[2] View Order");
         int opcao = input.nextInt();
-        purchaseOrOrder(opcao, store, input);
+        input.nextLine();
+        purchaseOrOrder(opcao, store, input, cliente);
     }
 
-    public static void purchaseOrOrder(int opcao, Store store, Scanner input) {        
+    public static void purchaseOrOrder(int opcao, Store store, Scanner input, Clients client) {        
         if(opcao < 1 || opcao >= 2){
             throw new StoreException("[ERRO] is invalid the option select");
         }else {
@@ -26,10 +29,11 @@ public class UI {
                     System.out.println("_____________________");
                     store.itemsForSale();            
                     System.out.println("Select the name and quantity");
-                    System.out.println("Name item: ");
-                    String nameItemforSale = input.nextLine();
-                    System.out.println("quantity:");
+                    System.out.print("Name item: ");
+                    String nameItemforSale = input.nextLine().toUpperCase();
+                    System.out.print("quantity:");
                     int quantity = input.nextInt();
+                    store.checkItemInStock(nameItemforSale, quantity, client);
                 case 2:    
             }
         }        

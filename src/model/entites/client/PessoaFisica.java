@@ -6,8 +6,8 @@ public class PessoaFisica extends Clients{
     private Long cpf;
     private Long rg; 
 
-    public PessoaFisica(Integer cod) {
-        super(cod);
+    public PessoaFisica(Integer cod, String name) {
+        super(cod, name); 
     }
 
     public PessoaFisica(String name, String telephone, String email, String[] address, Long cpf, Long rg, Integer codCliente) {

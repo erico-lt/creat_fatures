@@ -7,9 +7,10 @@ public abstract class Clients  implements Comparable<Clients>{
     private String[] address = new String[4];
     private Integer codCliente;    
 
-    public Clients(Integer cod) {
+    public Clients(Integer cod, String name) {
         this.setCodCliente(cod);
-    }
+        this.setName(name);
+    }  
 
     public Clients(String name, String telephone, String email, String[] address, Integer codClient) {
         this.setName(name);
