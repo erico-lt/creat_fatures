@@ -28,6 +28,15 @@ public class StoreServices {
         return false;
     }
 
+    public Clients clientExist(String name, Integer cod_Client, Store store) {
+        for(Clients client: store.getClients()) {
+            if(client.getCodCliente().compareTo(cod_Client) == 0 && client.getName().toUpperCase().equals(name)) {
+                return client;
+            }
+        }
+        return null;
+    }
+
     public void itemsForSale(Store store) {
         for(Item item: store.getStock().getList()) {
             System.out.println(item.toString());            
@@ -55,7 +64,7 @@ public class StoreServices {
             return new Tv(model, price, ItemTypes.TV);
         }
         return null;
-    }    
+    }        
 
     public Integer checkRequestNumber(Store store, Clients client) {
         int requestNumber = 0;

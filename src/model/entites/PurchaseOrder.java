@@ -7,11 +7,11 @@ import java.util.List;
 import model.exception.PurchaseException;
 import model.services.ServicesPurchaseOrder;
 
-public class PurchaseOrder {  
+public class PurchaseOrder {
     private LocalDate date;
     private double valueOrder;
     private Integer requestNumber;
-    private Integer cod_Client; 
+    private Integer cod_Client;
 
     private List<Item> requestList = new ArrayList<>();
     private List<Installment> listInstallment = new ArrayList<>();
@@ -21,17 +21,17 @@ public class PurchaseOrder {
         this.setDate(date);
         this.setRequestNumber(requestNumber);
         this.setCod_Client(cod_Client);
-    } 
+    }
 
     public void addItemForSale(Item item) {
         if (servicesPurchaseOrder.codPorductExist(this.getRequestList(), item)) {
             this.getRequestList().add(item);
         } else {
             throw new PurchaseException("ERRO: produto já existente");
-        }         
-       this.setValueOrder(this.getValueOrder() + servicesPurchaseOrder.valueOrder(item)); 
+        }
+        this.setValueOrder(this.getValueOrder() + servicesPurchaseOrder.valueOrder(item));
     }
-    
+
     public LocalDate getDate() {
         return date;
     }
@@ -62,8 +62,8 @@ public class PurchaseOrder {
 
     public void setCod_Client(Integer cod_Client) {
         this.cod_Client = cod_Client;
-    } 
-    
+    }
+
     public List<Item> getRequestList() {
         return requestList;
     }

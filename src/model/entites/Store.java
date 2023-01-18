@@ -10,21 +10,30 @@ import model.services.StoreServices;
 
 public class Store {
     private String name;
-    
+
     private List<Clients> clients = new ArrayList<Clients>();
     private Stock stock = new Stock("Stock #1");
     private List<PurchaseOrder> PurchaseOrder = new ArrayList<PurchaseOrder>();
     private StoreServices storeServices = new StoreServices();
-    
+
     public Store(String name) {
-        this.setName(name);         
+        this.setName(name);
     }
 
     public void addClients(Clients client) {
-        if(storeServices.clientExist(this.getClients(), client)) {
+        if (storeServices.clientExist(this.getClients(), client)) {
             throw new StoreException("Erro cliente já esxiste tente outro");
-        }else {
+        } else {
             this.getClients().add(client);
+        }
+    }
+
+    public Clients clientExist(String name, Integer cod_Client) {
+        Clients client = this.storeServices.clientExist(name.toUpperCase(), cod_Client, this);
+        if (client != null) {
+            return client;
+        } else {
+            throw new StoreException("[ERRO] cliente not exsist.");
         }
     }
 
@@ -42,11 +51,12 @@ public class Store {
     }
 
     public void checkItemInStock(String nameItem, int quant, Clients client) {
-        if(!nameItem.equals("BALL")  && !nameItem.equals("BIKE") && !nameItem.equals("PEN") && !nameItem.equals("SKATE") && !nameItem.equals( "TV")) {
+        if (!nameItem.equals("BALL") && !nameItem.equals("BIKE") && !nameItem.equals("PEN") && !nameItem.equals("SKATE")
+                && !nameItem.equals("TV")) {
             throw new StoreException("[ERRO] check name of item");
         }
         Item itemForPurchaseOrder = this.getStock().checkItemForSale(nameItem, quant);
-        if(itemForPurchaseOrder != null) {           
+        if (itemForPurchaseOrder != null) {
             int requestNumber = storeServices.checkRequestNumber(this, client);
             this.getPurchaseOrder().add(new PurchaseOrder(LocalDate.now(), requestNumber, client.getCodCliente()));
         }
@@ -58,11 +68,11 @@ public class Store {
 
     public void setName(String name) {
         this.name = name;
-    }  
+    }
 
     public List<Clients> getClients() {
         return clients;
-    }  
+    }
 
     public Stock getStock() {
         return stock;
@@ -74,9 +84,9 @@ public class Store {
 
     public List<PurchaseOrder> getPurchaseOrder() {
         return PurchaseOrder;
-    }  
+    }
 
-    @Override 
+    @Override
     public String toString() {
         return this.getName();
     }

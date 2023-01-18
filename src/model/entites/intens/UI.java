@@ -3,10 +3,56 @@ package model.entites.intens;
 import java.util.Scanner;
 
 import model.entites.Clients;
-import model.entites.Store; 
+import model.entites.Store;
+import model.entites.client.PessoaFisica;
+import model.entites.client.PessoaJuridica;
 import model.exception.StoreException;
 
 public class UI {
+
+    public static void initialLogin(Store store, Scanner input)  {
+        System.out.println(store.toString());
+        System.out.println("[1] login");
+        System.out.println("[2] for register");
+        int option = input.nextInt();
+        input.nextLine();
+        if(option == 1) {
+            System.out.print("Type your name: ");
+            String nameClient = input.nextLine();
+            System.out.print("Type client code: ");
+            Integer cod_Client = input.nextInt();
+            Clients client = store.clientExist(nameClient, cod_Client);
+            firstPage(store, input, client);
+        } else {
+            System.out.println("[1] for person fisic");
+            System.out.println("[2] for person juridic");
+            int optionPerson = input.nextInt();   
+            input.nextLine();         
+            System.out.print("Type your name: ");
+            String name = input.nextLine();
+            System.out.print("Telephone: ");
+            String telephone = input.nextLine();
+            System.out.print("Email: ");
+            String email = input.nextLine();
+            System.out.print("Address -> (street,district,city,state): ");
+            String[] address = input.nextLine().split(",");
+            System.out.print("Cod client: ");
+            Integer cod_Client = input.nextInt();
+            if(optionPerson == 1) {
+                System.out.print("CPF: ");
+                Long cpf = input.nextLong();
+                System.out.print("RG: ");
+                Long rg = input.nextLong();
+                store.addClients(new PessoaFisica(name, telephone, email, address, cpf, rg, cod_Client));
+            } else {
+                System.out.print("CNPJ: ");
+                Long cnpj = input.nextLong();
+                System.out.print("State Inscription: ");
+                Long stateInsc = input.nextLong();
+                store.addClients(new PessoaJuridica(name, telephone, email, address, cnpj, stateInsc, cod_Client));
+            }            
+        }
+    }
 
     public static void firstPage(Store store, Scanner input, Clients cliente) {
         System.out.println(store.toString());

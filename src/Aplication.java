@@ -15,11 +15,11 @@ public class Aplication {
         MethodOfPayment servicePayment = new MethodOfPayment(new PaypalService());
         Store store = new Store("Sport e Lazer");  
         store.items();   
-        Clients cliente = new PessoaFisica(423, "Érico");
-          
+        Clients cliente = new PessoaFisica(423, "Erico");
+        store.addClients(cliente); 
         while(true) {
             try {
-               UI.firstPage(store, input, cliente);
+                UI.initialLogin(store, input);
             }
             catch(RuntimeException e) {
                 System.out.println(e.getMessage());
