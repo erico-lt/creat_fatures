@@ -7,7 +7,6 @@ public class Skate extends Item{
 
     public Skate(String model, Double price, ItemTypes type) {
         super(model, price, type);
-       
     }
 
     @Override

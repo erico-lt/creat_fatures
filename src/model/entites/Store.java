@@ -50,15 +50,13 @@ public class Store {
         stock.addItem(item, codProduct, quantity);
     }
 
-    public void checkItemInStock(String nameItem, int quant, Clients client) {
-        if (!nameItem.equals("BALL") && !nameItem.equals("BIKE") && !nameItem.equals("PEN") && !nameItem.equals("SKATE")
-                && !nameItem.equals("TV")) {
+    public void checkHaveOrder(String nameItem, int quant, Clients client) {
+        if (!nameItem.equals("BALL") && !nameItem.equals("BIKE") && !nameItem.equals("PEN") && !nameItem.equals("SKATE") && !nameItem.equals("TV")) {
             throw new StoreException("[ERRO] check name of item");
         }
         Item itemForPurchaseOrder = this.getStock().checkItemForSale(nameItem, quant);
         if (itemForPurchaseOrder != null) {
-            int requestNumber = storeServices.checkRequestNumber(this, client);
-            this.getPurchaseOrder().add(new PurchaseOrder(LocalDate.now(), requestNumber, client.getCodCliente()));
+            storeServices.checkHaveOrderClient(this, client, itemForPurchaseOrder);            
         }
     }
 

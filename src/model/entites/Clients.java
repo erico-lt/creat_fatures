@@ -49,6 +49,9 @@ public abstract class Clients  implements Comparable<Clients>{
     }
 
     public void setAddress(String[] address) {
+        if(address.length < 4) {
+            throw new NullPointerException("[ERRO] endereço incompleto");
+        }
         for(int cont = 0; cont < this.getAddress().length - 1; cont++) {
             this.address[cont] = address[cont];
         }

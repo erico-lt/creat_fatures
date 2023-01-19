@@ -79,7 +79,7 @@ public class UI {
                     String nameItemforSale = input.nextLine().toUpperCase();
                     System.out.print("quantity:");
                     int quantity = input.nextInt();
-                    store.checkItemInStock(nameItemforSale, quantity, client);
+                    store.checkHaveOrder(nameItemforSale, quantity, client);
                 case 2:    
             }
         }        

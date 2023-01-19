@@ -18,7 +18,7 @@ public abstract class Item implements Comparable<Item>{
         } else if(type.equals(ItemTypes.PEN)) {
             this.setName("Pen");
         } else if(type.equals(ItemTypes.SKATE)) {
-            this.setName("Skatw");
+            this.setName("Skate");
         } else {
             this.setName("Tv");
         }        
