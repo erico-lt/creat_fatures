@@ -60,6 +60,13 @@ public class Store {
         }
     }
 
+    public void viewItenOfClient(Clients client) {
+        if(!this.storeServices.clientExist(this.getClients(), client)) {
+            throw new StoreException("[ERRO] client not exist");
+        }          
+        this.storeServices.viewItensOfClient(client.getCodCliente(), this);
+    }
+
     public String getName() {
         return name;
     }

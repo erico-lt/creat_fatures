@@ -24,10 +24,8 @@ public class PurchaseOrder {
     }
 
     public void addItemForSale(Item item) {
-        if (servicesPurchaseOrder.codPorductExist(this.getRequestList(), item)) {
+        if (!servicesPurchaseOrder.codPorductExist(this.getRequestList(), item)) {
             this.getRequestList().add(item);
-        } else {
-            throw new PurchaseException("ERRO: produto já existente");
         }
         this.setValueOrder(this.getValueOrder() + servicesPurchaseOrder.valueOrder(item));
     }

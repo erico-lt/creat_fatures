@@ -66,7 +66,7 @@ public class UI {
     }
 
     public static void purchaseOrOrder(int opcao, Store store, Scanner input, Clients client) {        
-        if(opcao < 1 || opcao >= 2){
+        if(opcao < 1 || opcao > 2){
             throw new StoreException("[ERRO] is invalid the option select");
         }else {
             switch(opcao) {
@@ -80,7 +80,11 @@ public class UI {
                     System.out.print("quantity:");
                     int quantity = input.nextInt();
                     store.checkHaveOrder(nameItemforSale, quantity, client);
-                case 2:    
+                    break;
+                case 2:   
+                    System.out.println("Itens in you order");
+                    store.viewItenOfClient(client);
+                    break;
             }
         }        
     }
