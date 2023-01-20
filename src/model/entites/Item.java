@@ -7,7 +7,7 @@ public abstract class Item implements Comparable<Item>{
     private String model;
     private Double price;
     private int quant;
-    private int cod_Product;
+    private Integer cod_Product;
     private ItemTypes type;
   
     public Item(String model, Double price, ItemTypes type) {  
@@ -67,11 +67,11 @@ public abstract class Item implements Comparable<Item>{
         this.quant = quant;
     }
 
-    public int getCod_Product() {
+    public Integer getCod_Product() {
         return cod_Product;
     }
 
-    public void setCod_Product(int cod_Product) {
+    public void setCod_Product(Integer cod_Product) {
         this.cod_Product = cod_Product;
     }    
 

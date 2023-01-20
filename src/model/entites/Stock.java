@@ -31,7 +31,8 @@ public class Stock {
         for(Item item: list) {
             if(item.getName().toUpperCase().equals(name) && item.getQuant() > 0 && item.getQuant() >= quant) {
                 Item itemforSale = verificTypeItem(item); 
-                itemforSale.setQuant(quant);               
+                itemforSale.setQuant(quant); 
+                itemforSale.setCod_Product(item.getCod_Product());                              
                 item.setQuant(item.getQuant() - quant);                
                 return itemforSale;
             }

@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.exception.PurchaseException;
 import model.services.ServicesPurchaseOrder;
 
 public class PurchaseOrder {
@@ -26,6 +25,12 @@ public class PurchaseOrder {
     public void addItemForSale(Item item) {
         if (!servicesPurchaseOrder.codPorductExist(this.getRequestList(), item)) {
             this.getRequestList().add(item);
+        } else{
+            for(Item ite: this.getRequestList()) {
+                if(ite.getName().toUpperCase().equals(item.getName().toUpperCase())) {
+                    ite.setQuant(ite.getQuant() + item.getQuant());
+                }
+            }
         }
         this.setValueOrder(this.getValueOrder() + servicesPurchaseOrder.valueOrder(item));
     }

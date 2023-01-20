@@ -11,6 +11,6 @@ public class Ball extends Item{
 
     @Override
     public int compareTo(Item item) {        
-        return this.getName().compareTo(item.getName());
-    }      
+        return this.getCod_Product().compareTo(item.getCod_Product());
+    }
 }

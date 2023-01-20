@@ -4,14 +4,14 @@ import java.util.List;
 
 import model.entites.Item;
 
-public class ServicesPurchaseOrder { 
+public class ServicesPurchaseOrder {
 
-    public boolean codPorductExist(List<Item> itens, Item item) {     
-        for(Item x: itens) {
-            if(x.getCod_Product() == item.getCod_Product()) {
+    public boolean codPorductExist(List<Item> itens, Item item) {
+        for (Item x : itens) {
+            if (x.compareTo(item) == 0) {
                 return true;
             }
-        }         
+        }
         return false;
     }
 

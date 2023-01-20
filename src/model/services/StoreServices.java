@@ -72,27 +72,27 @@ public class StoreServices {
         if (store.getPurchaseOrder().isEmpty()) {
             store.getPurchaseOrder().add(new PurchaseOrder(LocalDate.now(), 0, client.getCodCliente()));
             store.getPurchaseOrder().get(0).addItemForSale(item);
-        } else if(this.purchaseOrOrderExist(client.getCodCliente(), store)){
+        } else if (this.purchaseOrOrderExist(client.getCodCliente(), store)) {
             for (PurchaseOrder x : store.getPurchaseOrder()) {
                 if (x.getCod_Client() == client.getCodCliente()) {
-                    x.addItemForSale(item);
+                    x.addItemForSale(item); 
                 }
-            }                 
+            }
         } else {
             store.getPurchaseOrder().add(new PurchaseOrder(LocalDate.now(), store.getPurchaseOrder().size() + 1, client.getCodCliente()));
             this.checkHaveOrderClient(store, client, item);
-        }        
+        }
     }
 
     public void viewItensOfClient(Integer cod_Cliente, Store store) {
-        if(!this.purchaseOrOrderExist(cod_Cliente, store)) {
+        if (!this.purchaseOrOrderExist(cod_Cliente, store)) {
             throw new StoreException("[ERRO] order not find, verific your dices");
         }
-        for(PurchaseOrder x: store.getPurchaseOrder()) {
-            if(x.getCod_Client().equals(cod_Cliente)) {
+        for (PurchaseOrder x : store.getPurchaseOrder()) {
+            if (x.getCod_Client().equals(cod_Cliente)) {
                 System.out.println("Cod Client: " + x.getCod_Client());
                 System.out.println("Value order: " + x.getValueOrder());
-                for(Item item: x.getRequestList()) {
+                for (Item item : x.getRequestList()) {
                     System.out.println(item.toString());
                     System.out.println();
                 }
@@ -101,10 +101,10 @@ public class StoreServices {
     }
 
     public boolean purchaseOrOrderExist(Integer cod_Client, Store store) {
-        for(PurchaseOrder x: store.getPurchaseOrder()) {
-            if(x.getCod_Client().equals(cod_Client)) {
+        for (PurchaseOrder x : store.getPurchaseOrder()) {
+            if (x.getCod_Client().equals(cod_Client)) {
                 return true;
-            }            
+            }
         }
         return false;
     }
