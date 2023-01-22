@@ -75,7 +75,7 @@ public class PurchaseOrder {
         return listInstallment;
     }
 
-    public void setListInstallment(Installment Installment) {
+    public void addInstallment(Installment Installment) {
         this.listInstallment.add(Installment);
     }
 

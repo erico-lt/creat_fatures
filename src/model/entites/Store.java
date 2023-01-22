@@ -1,11 +1,11 @@
 package model.entites;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.enums.ItemTypes;
 import model.exception.StoreException;
+import model.interfaces.OlinePaymentService;
 import model.services.StoreServices;
 
 public class Store {
@@ -15,9 +15,11 @@ public class Store {
     private Stock stock = new Stock("Stock #1");
     private List<PurchaseOrder> PurchaseOrder = new ArrayList<PurchaseOrder>();
     private StoreServices storeServices = new StoreServices();
+    private OlinePaymentService olinePaymentService;
 
-    public Store(String name) {
+    public Store(String name, OlinePaymentService olinePaymentService) {
         this.setName(name);
+        this.setOlinePaymentService(olinePaymentService);
     }
 
     public void addClients(Clients client) {
@@ -45,6 +47,10 @@ public class Store {
         this.storeServices.itemsForSale(this);
     }
 
+    public void installmentOfClients(Integer cod_Client)  {
+        this.storeServices.viewFaturesOfClient(cod_Client, this);
+    }
+
     public void addItemInStock(ItemTypes type, String model, Double price, Integer codProduct, Integer quantity) {
         Item item = this.storeServices.verificItemOfAdd(type, model, price);
         stock.addItem(item, codProduct, quantity);
@@ -65,6 +71,11 @@ public class Store {
             throw new StoreException("[ERRO] client not exist");
         }          
         this.storeServices.viewItensOfClient(client.getCodCliente(), this);
+    }
+
+    public PurchaseOrder CheckOrderForPayment (Integer cod_Client){
+        PurchaseOrder purchaseOrder = storeServices.ReturnOrderForPayment(cod_Client, this);
+        return purchaseOrder;
     }
 
     public String getName() {
@@ -91,8 +102,17 @@ public class Store {
         return PurchaseOrder;
     }
 
+    public OlinePaymentService getOlinePaymentService() {
+        return olinePaymentService;
+    }
+   
+    public void setOlinePaymentService(OlinePaymentService olinePaymentService) {
+        this.olinePaymentService = olinePaymentService;
+    }
+
     @Override
     public String toString() {
         return this.getName();
     }
+
 }

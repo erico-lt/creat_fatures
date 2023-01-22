@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import model.entites.Clients;
+import model.entites.Installment;
 import model.entites.Item;
 import model.entites.PurchaseOrder;
 import model.entites.Store;
@@ -68,20 +69,44 @@ public class StoreServices {
         return null;
     }
 
-    public void checkHaveOrderClient(Store store, Clients client, Item item) {
+    public void checkHaveOrderClient(Store store, Clients client, Item item) {        
         if (store.getPurchaseOrder().isEmpty()) {
             store.getPurchaseOrder().add(new PurchaseOrder(LocalDate.now(), 0, client.getCodCliente()));
             store.getPurchaseOrder().get(0).addItemForSale(item);
         } else if (this.purchaseOrOrderExist(client.getCodCliente(), store)) {
             for (PurchaseOrder x : store.getPurchaseOrder()) {
                 if (x.getCod_Client() == client.getCodCliente()) {
-                    x.addItemForSale(item); 
+                    x.addItemForSale(item);
                 }
             }
         } else {
-            store.getPurchaseOrder().add(new PurchaseOrder(LocalDate.now(), store.getPurchaseOrder().size() + 1, client.getCodCliente()));
+            store.getPurchaseOrder().add(
+                new PurchaseOrder(LocalDate.now(), store.getPurchaseOrder().size() + 1, client.getCodCliente()));
             this.checkHaveOrderClient(store, client, item);
         }
+    }
+
+    public PurchaseOrder ReturnOrderForPayment(Integer cod_Client, Store store) {
+        if (!this.purchaseOrOrderExist(cod_Client, store)) {
+            throw new StoreException("[ERRO] order not exist");
+        }
+
+        for (PurchaseOrder x : store.getPurchaseOrder()) {
+            if (x.getCod_Client() == cod_Client) {
+                return x;
+            }
+        }
+
+        return null;
+    }
+
+    public boolean purchaseOrOrderExist(Integer cod_Client, Store store) {
+        for (PurchaseOrder x : store.getPurchaseOrder()) {
+            if (x.getCod_Client().equals(cod_Client)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void viewItensOfClient(Integer cod_Cliente, Store store) {
@@ -100,12 +125,19 @@ public class StoreServices {
         }
     }
 
-    public boolean purchaseOrOrderExist(Integer cod_Client, Store store) {
+    public void viewFaturesOfClient(Integer cod_Cliente, Store store) {
+        if (!this.purchaseOrOrderExist(cod_Cliente, store)) {
+            throw new StoreException("[ERRO] order not find, verific your dices");
+        }
         for (PurchaseOrder x : store.getPurchaseOrder()) {
-            if (x.getCod_Client().equals(cod_Client)) {
-                return true;
+            if (x.getCod_Client().equals(cod_Cliente)) {
+                System.out.println("Cod Client: " + x.getCod_Client());
+                System.out.println("FATURES: " + x.getValueOrder());
+                for (Installment installment : x.getListInstallment()) {
+                    System.out.println(installment.toString());
+                    System.out.println();
+                }
             }
         }
-        return false;
     }
 }

@@ -1,37 +1,68 @@
 package model.services;
 
 import java.time.LocalDate;
-
-import model.entites.Contract;
 import model.entites.Installment;
+import model.entites.PurchaseOrder;
 import model.interfaces.OlinePaymentService;
 
 public class MethodOfPayment {
-    
+
     private OlinePaymentService olinePaymentService;
 
-    public MethodOfPayment(OlinePaymentService olinePaymentService) {        
+    public MethodOfPayment(OlinePaymentService olinePaymentService) {
         this.setOlinePaymentService(olinePaymentService);
     }
 
-    public void processContract(Contract contract, int months, Long cnpj) {        
-        double valuePerMonth = contract.getTotalValue() / months;
+    public void processContract(PurchaseOrder purchaseOrder, int months, Long cnpj, Long insState) {
+        double valuePerMonth = purchaseOrder.getValueOrder() / months;
 
-        for(int cont = 1; cont <= months; cont ++) {
-            LocalDate nextDueDate = contract.getDate().plusMonths(cont);
-           
+        for (int cont = 1; cont <= months; cont++) {
+            LocalDate nextDueDate = purchaseOrder.getDate().plusMonths(cont);
+
             double interest = this.getOlinePaymentService().interest(valuePerMonth, cont);
             double fee = this.getOlinePaymentService().paymentFee(valuePerMonth + interest);
-            double totalvalue = valuePerMonth + fee + interest; 
-            
-            if(cnpj != null) {
-                
-            } else {
-                contract.addContract(new Installment(nextDueDate, totalvalue));
-            }
-                    
-        }        
+            double totalvalue = valuePerMonth + fee + interest;
+
+            purchaseOrder.addInstallment(new Installment(nextDueDate, totalvalue, cnpj, insState));
+
+        }
     }
+
+    public void processContract(PurchaseOrder purchaseOrder, int months, Long cpf) {
+        double valuePerMonth = purchaseOrder.getValueOrder() / months;
+
+        for (int cont = 1; cont <= months; cont++) {
+            LocalDate nextDueDate = purchaseOrder.getDate().plusMonths(cont);
+
+            double interest = this.getOlinePaymentService().interest(valuePerMonth, cont);
+            double fee = this.getOlinePaymentService().paymentFee(valuePerMonth + interest);
+            double totalvalue = valuePerMonth + fee + interest;
+
+            purchaseOrder.addInstallment(new Installment(nextDueDate, totalvalue, cpf));
+
+        }
+    }
+
+    /*
+     * public void processContract(Contract contract, int months, Long cnpj, Integer
+     * inscState) {
+     * double valuePerMonth = contract.getTotalValue() / months;
+     * 
+     * for (int cont = 1; cont <= months; cont++) {
+     * LocalDate nextDueDate = contract.getDate().plusMonths(cont);
+     * 
+     * double interest = this.getOlinePaymentService().interest(valuePerMonth,
+     * cont);
+     * double fee = this.getOlinePaymentService().paymentFee(valuePerMonth +
+     * interest);
+     * double totalvalue = valuePerMonth + fee + interest;
+     * 
+     * contract.addContract(new Installment(nextDueDate, totalvalue, cnpj,
+     * inscState));
+     * 
+     * }
+     * }
+     */
 
     public OlinePaymentService getOlinePaymentService() {
         return olinePaymentService;

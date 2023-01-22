@@ -7,6 +7,7 @@ import model.entites.Store;
 import model.entites.client.PessoaFisica;
 import model.entites.client.PessoaJuridica;
 import model.exception.StoreException;
+import model.services.MethodOfPayment;
 
 public class UI {
 
@@ -60,13 +61,14 @@ public class UI {
         System.out.println("MENU");
         System.out.println("[1] Purchase");
         System.out.println("[2] View Order");
+        System.out.println("[3] for process of payment");
         int opcao = input.nextInt();
         input.nextLine();
         purchaseOrOrder(opcao, store, input, cliente);
     }
 
     public static void purchaseOrOrder(int opcao, Store store, Scanner input, Clients client) {
-        if (opcao < 1 || opcao > 2) {
+        if (opcao < 1 || opcao > 3) {
             throw new StoreException("[ERRO] is invalid the option select");
         } else {
             switch (opcao) {
@@ -82,7 +84,7 @@ public class UI {
                         String nameItemforSale = input.nextLine().toUpperCase();
                         System.out.print("quantity:");
                         int quantity = input.nextInt();
-                        
+
                         store.checkHaveOrder(nameItemforSale, quantity, client);
 
                         System.out.print("Do you want to place more orders? [S/N] ");
@@ -94,6 +96,23 @@ public class UI {
                 case 2:
                     System.out.println("Itens in you order");
                     store.viewItenOfClient(client);
+                    break;
+                case 3:
+                    MethodOfPayment paymentService = new MethodOfPayment(store.getOlinePaymentService()); 
+                    System.out.println("PROCESS PAYMENT");
+                    System.out.println("_____________________");
+                    System.out.print("How many months do you want to pay? ");
+                    int months = input.nextInt();
+                    System.out.print("Pills type you CPF or CNPJ: ");
+                    Long cpforCnpj = input.nextLong();
+                    System.out.print("Your inscrission state case juric person: ");
+                    Long insState = input.nextLong();
+                    if(client instanceof PessoaFisica) {                                                    
+                        paymentService.processContract(store.CheckOrderForPayment(client.getCodCliente()), months, cpforCnpj);
+                    } else {
+                        paymentService.processContract(store.CheckOrderForPayment(client.getCodCliente()), months, cpforCnpj, insState);
+                    }
+                    store.installmentOfClients(client.getCodCliente());
                     break;
             }
         }
