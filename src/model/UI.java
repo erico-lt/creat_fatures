@@ -1,4 +1,4 @@
-package model.entites.intens;
+package model;
 
 import java.util.Scanner;
 
@@ -11,13 +11,21 @@ import model.services.MethodOfPayment;
 
 public class UI {
 
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
     public static void initialLogin(Store store, Scanner input) {
+        clearScreen();
         System.out.println(store.toString());
         System.out.println("[1] login");
         System.out.println("[2] for register");
         int option = input.nextInt();
         input.nextLine();
         if (option == 1) {
+            clearScreen();
+            System.out.println(store.toString());
             System.out.print("Type your name: ");
             String nameClient = input.nextLine();
             System.out.print("Type client code: ");
@@ -25,6 +33,8 @@ public class UI {
             Clients client = store.clientExist(nameClient, cod_Client);
             firstPage(store, input, client);
         } else {
+            clearScreen();
+            System.out.println(store.toString());
             System.out.println("[1] for person fisic");
             System.out.println("[2] for person juridic");
             int optionPerson = input.nextInt();
@@ -52,30 +62,33 @@ public class UI {
                 Long stateInsc = input.nextLong();
                 store.addClients(new PessoaJuridica(name, telephone, email, address, cnpj, stateInsc, cod_Client));
             }
+            initialLogin(store, input);
         }
     }
 
     public static void firstPage(Store store, Scanner input, Clients cliente) {
+        clearScreen();
         System.out.println(store.toString());
         System.out.println();
         System.out.println("MENU");
         System.out.println("[1] Purchase");
         System.out.println("[2] View Order");
-        System.out.println("[3] for process of payment");
+        System.out.println("[3] For process of payment");
         int opcao = input.nextInt();
         input.nextLine();
         purchaseOrOrder(opcao, store, input, cliente);
     }
 
     public static void purchaseOrOrder(int opcao, Store store, Scanner input, Clients client) {
+        char resp;
         if (opcao < 1 || opcao > 3) {
             throw new StoreException("[ERRO] is invalid the option select");
         } else {
             switch (opcao) {
                 case 1:
+                    clearScreen();
                     System.out.println("Items for sale");
                     System.out.println("_____________________");
-                    char resp;
                     do {
                         store.itemsForSale();
                         System.out.println();
@@ -92,27 +105,51 @@ public class UI {
                         input.nextLine();
                         System.out.println();
                     } while (resp != 'n' && resp != 'N');
-                    break;
+                    purchaseOrOrder(2, store, input, client);
                 case 2:
-                    System.out.println("Itens in you order");
+                    clearScreen();
+                    System.out.println("Itens in you order");                    
                     store.viewItenOfClient(client);
+                    System.out.print("Do you want to see the payment method now? [S/N] ");
+                    resp = input.next().charAt(0);
+                    if (resp == 's' || resp == 'S') {
+                        purchaseOrOrder(3, store, input, client);
+                    } else {
+                        firstPage(store, input, client);
+                    }
                     break;
                 case 3:
-                    MethodOfPayment paymentService = new MethodOfPayment(store.getOlinePaymentService()); 
-                    System.out.println("PROCESS PAYMENT");
+                    clearScreen();
+                    MethodOfPayment paymentService = new MethodOfPayment(store.getOlinePaymentService());
+                    System.out.println();
                     System.out.println("_____________________");
+                    System.out.println("PROCESS PAYMENT");
                     System.out.print("How many months do you want to pay? ");
                     int months = input.nextInt();
                     System.out.print("Pills type you CPF or CNPJ: ");
                     Long cpforCnpj = input.nextLong();
-                    System.out.print("Your inscrission state case juric person: ");
-                    Long insState = input.nextLong();
-                    if(client instanceof PessoaFisica) {                                                    
+                    System.out.println("Are you a juridc person [S/N]");
+                    resp = input.next().charAt(0);
+                    Long insState = null;
+                    if (resp == 's' || resp == 'S') {
+                        System.out.print("Your inscrission state case juric person: ");
+                        insState = input.nextLong();
+                    }                    
+                    if (client instanceof PessoaFisica) {
                         paymentService.processContract(store.CheckOrderForPayment(client.getCodCliente()), months, cpforCnpj);
                     } else {
                         paymentService.processContract(store.CheckOrderForPayment(client.getCodCliente()), months, cpforCnpj, insState);
                     }
-                    store.installmentOfClients(client.getCodCliente());
+                    System.out.println();
+                    store.installmentOfClients(client.getCodCliente());                   
+                    System.out.println("[1] Go to menu");
+                    System.out.println("[2] Exit");
+                    int option = input.nextInt();
+                    if (option == 1) {
+                        firstPage(store, input, client);
+                    } else {
+                        initialLogin(store, input);
+                    }
                     break;
             }
         }

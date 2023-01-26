@@ -115,8 +115,10 @@ public class StoreServices {
         }
         for (PurchaseOrder x : store.getPurchaseOrder()) {
             if (x.getCod_Client().equals(cod_Cliente)) {
+                System.out.println("_____________________");
                 System.out.println("Cod Client: " + x.getCod_Client());
                 System.out.println("Value order: " + x.getValueOrder());
+                System.out.println("______________________");
                 for (Item item : x.getRequestList()) {
                     System.out.println(item.toString());
                     System.out.println();

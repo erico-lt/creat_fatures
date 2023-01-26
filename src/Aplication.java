@@ -1,10 +1,10 @@
 import java.util.Locale;
 import java.util.Scanner;
 
+import model.UI;
 import model.entites.Clients;
 import model.entites.Store;
 import model.entites.client.PessoaFisica;
-import model.entites.intens.UI;
 import model.services.PaypalService;
 
 

@@ -12,9 +12,13 @@ public class MethodOfPayment {
     public MethodOfPayment(OlinePaymentService olinePaymentService) {
         this.setOlinePaymentService(olinePaymentService);
     }
-
-    public void processContract(PurchaseOrder purchaseOrder, int months, Long cnpj, Long insState) {
+    
+    public void processContract(PurchaseOrder purchaseOrder, int months, Long cnpj, Long insState) {        
         double valuePerMonth = purchaseOrder.getValueOrder() / months;
+
+        if(purchaseOrder.getListInstallment().size() != 0) {
+            purchaseOrder.getListInstallment().clear();
+        }
 
         for (int cont = 1; cont <= months; cont++) {
             LocalDate nextDueDate = purchaseOrder.getDate().plusMonths(cont);
@@ -30,6 +34,10 @@ public class MethodOfPayment {
 
     public void processContract(PurchaseOrder purchaseOrder, int months, Long cpf) {
         double valuePerMonth = purchaseOrder.getValueOrder() / months;
+        
+        if(purchaseOrder.getListInstallment().size() != 0) {
+            purchaseOrder.getListInstallment().clear();
+        }
 
         for (int cont = 1; cont <= months; cont++) {
             LocalDate nextDueDate = purchaseOrder.getDate().plusMonths(cont);
