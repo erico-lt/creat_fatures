@@ -2,6 +2,8 @@ package model.services;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import model.entites.Clients;
 import model.entites.Installment;
@@ -18,32 +20,28 @@ import model.exception.StoreException;
 
 public class StoreServices {
 
-    public <T extends Comparable<? super T>> boolean clientExist(List<T> listClients, T client) {
+    public boolean clientExist(List<Clients> listClients, Clients client) {
         if (listClients.isEmpty()) {
             return false;
+        }         
+        Clients clien = listClients.stream().filter(p -> p.equals(client)).findFirst().orElse(null);
+        if(clien != null) {
+            return true;
+        } else {
+            return false;
         }
-        for (T item : listClients) {
-            if (item.compareTo(client) == 0) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public Clients clientExist(String name, Integer cod_Client, Store store) {
-        for (Clients client : store.getClients()) {
-            if (client.getCodCliente().compareTo(cod_Client) == 0 && client.getName().toUpperCase().equals(name)) {
-                return client;
-            }
-        }
-        return null;
+        if(store.getClients().isEmpty()) {
+            return null;
+        } else {
+            return store.getClients().stream().filter(p -> p.getName().toUpperCase().equals(name.toUpperCase()) && p.getCodCliente().equals(cod_Client)).findFirst().orElse(null);            
+        }         
     }
 
     public void itemsForSale(Store store) {
-        for (Item item : store.getStock().getList()) {
-            System.out.println(item.toString());
-        }
+        store.getStock().getList().forEach(System.out::println);
     }
 
     public void addItensInStock(Store store) {
