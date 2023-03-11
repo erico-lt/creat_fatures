@@ -24,8 +24,8 @@ public class StoreServices {
         if (listClients.isEmpty()) {
             return false;
         }         
-        Clients clien = listClients.stream().filter(p -> p.equals(client)).findFirst().orElse(null);
-        if(clien != null) {
+        Clients client = listClients.stream().filter(p -> p.equals(client)).findFirst().orElse(null);
+        if(client != null) {
             return true;
         } else {
             return false;
